@@ -2,7 +2,7 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 
 format: jb-book
-root: index
+root: index.md
 title: dolfinx_optim Documentation
 
 
@@ -15,4 +15,4 @@ parts:
       - file: demos/cartoon_texture_decomposition/cartoon_texture_decomposition.md
   - caption: API
     chapters:
-      - file: api/api.rst
+      - file: docs/api/api.rst

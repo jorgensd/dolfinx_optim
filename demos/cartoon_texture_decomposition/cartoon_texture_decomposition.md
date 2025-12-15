@@ -83,7 +83,7 @@ colliding_cells = geometry.compute_colliding_cells(
 # represent image as DG0 on quad mesh
 V00 = fem.functionspace(domain0, ("DG", 0))
 y0 = fem.Function(V00)
-cells = [c for i in range(len(colliding_cells)) for c in colliding_cells.links(i)]
+cells = colliding_cells.array
 y0.x.array[cells] = image.ravel()
 ```
 
@@ -102,11 +102,11 @@ y = fem.Function(V0)
 fine_mesh_cell_map = domain.topology.index_map(domain.topology.dim)
 num_cells_on_proc = fine_mesh_cell_map.size_local + fine_mesh_cell_map.num_ghosts
 cells = np.arange(num_cells_on_proc, dtype=np.int32)
-interpolation_data = fem.create_nonmatching_meshes_interpolation_data(
-    V0.mesh.geometry, V0.element, V00.mesh, cells, padding=1e-14
+interpolation_data = fem.create_interpolation_data(
+    V0, V00, cells, padding=1e-14
 )
 # interpolate on non-matching mesh
-y.interpolate(y0, nmm_interpolation_data=interpolation_data)
+y.interpolate_nonmatching(y0, cells=cells, interpolation_data=interpolation_data)
 ```
 
 We now define the variational problem by creating the two optimization variables $u$ and $\boldsymbol{g}$.

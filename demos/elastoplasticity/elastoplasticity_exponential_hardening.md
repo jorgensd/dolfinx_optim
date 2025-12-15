@@ -137,7 +137,7 @@ We create a rectangular plate with two circular notches on its sides using `gmsh
 
 def generate_notched_plate(W, H, R, mesh_size):
     import gmsh
-    from dolfinx.io.gmshio import model_to_mesh
+    from dolfinx.io.gmsh import model_to_mesh
 
     gmsh.initialize()
     gmsh.option.setNumber("General.Terminal", 0)  # to disable meshing info
@@ -189,7 +189,7 @@ def generate_notched_plate(W, H, R, mesh_size):
 
         gmsh.model.mesh.generate(gdim)
 
-        domain, markers, facets = model_to_mesh(
+        mesh_data = model_to_mesh(
             gmsh.model,
             mesh_comm,
             model_rank,
@@ -197,7 +197,7 @@ def generate_notched_plate(W, H, R, mesh_size):
         )
 
     gmsh.finalize()
-    return domain, markers, facets
+    return mesh_data.mesh, mesh_data.cell_tags, mesh_data.facet_tags
 ```
 
 We generate the mesh and define the different physical constants for the problem.
@@ -436,7 +436,7 @@ for i, t in enumerate(t_list[1:]):
     epsp.x.petsc_vec.copy(epsp_old.x.petsc_vec)
 
     sigma = sig(eps_el)
-    sig_exp = fem.Expression(sigma[1, 1], Vp.element.interpolation_points())
+    sig_exp = fem.Expression(sigma[1, 1], Vp.element.interpolation_points)
     sigyy.interpolate(sig_exp)
 
 

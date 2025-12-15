@@ -32,7 +32,8 @@ exclude_patterns: [
     ...,
     docs/index.md,
     README.md,
-    "**/*.ipynb"]
+    "**/*.ipynb",
+    "*.pytest_cache"]
 
 # Sphinx configuration for custom theme
 sphinx:
@@ -58,7 +59,12 @@ sphinx:
   - 'sphinx.ext.viewcode'
   - 'sphinx.ext.autosummary'
   - 'docs.remove_docstring' # remove module docstring
-    
+  - 'sphinx.ext.intersphinx'
+  - "sphinx_codeautolink"
+
+
+
+
 parse:
   myst_enable_extensions:
     - "amsmath"
