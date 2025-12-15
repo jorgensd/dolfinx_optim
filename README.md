@@ -8,11 +8,11 @@
 
 ## Prerequisites
 **dolfinx_optim** requires: 
-* **FEniCSx** (v.0.8), see [installation instructions here](https://fenicsproject.org/download/).
+* **FEniCSx** (v.0.10), see [installation instructions here](https://fenicsproject.org/download/).
 * **MOSEK** (>= version 10 with its Python Fusion interface), see [installation instructions here](https://www.mosek.com/downloads/). The Python interface can be simply installed via `pip`:
 
 ```
-pip install -f https://download.mosek.com/stable/wheel/index.html Mosek
+pip install -f mosek
 ```
 
 Mosek is a commercial software so users need a valid Mosek license. Free unlimited licenses are available for education and research purposes, see the [Academic License section](https://www.mosek.com/products/academic-licenses/).
