@@ -368,7 +368,7 @@ We now define the relevant function spaces associated with the discretization of
 
 ```{code-cell} ipython3
 # P2 interpolation for velocity
-V = fem.functionspace(domain, ("CG", 2, (2,)))
+V = fem.functionspace(domain, ("Lagrange", 2, (2,)))
 Vuy, _ = V.sub(1).collapse()
 Vepsp = fem.functionspace(domain, ("DG", 1, (4,)))
 Vp,_ = Vepsp.sub(0).collapse()
@@ -432,8 +432,8 @@ for i, t in enumerate(t_list[1:]):
     prob.parameters["log_level"] = 0
     prob.optimize()
 
-    p.vector.copy(p_old.vector)
-    epsp.vector.copy(epsp_old.vector)
+    p.x.petsc_vec.copy(p_old.x.petsc_vec)
+    epsp.x.petsc_vec.copy(epsp_old.x.petsc_vec)
 
     sigma = sig(eps_el)
     sig_exp = fem.Expression(sigma[1, 1], Vp.element.interpolation_points())

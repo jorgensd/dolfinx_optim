@@ -24,7 +24,7 @@ domain = mesh.create_unit_square(
 )
 
 deg=1
-V = fem.functionspace(domain, ("CG", deg, ()))
+V = fem.functionspace(domain, ("Lagrange", deg, ()))
 u = fem.Function(V)
 u.interpolate(lambda x: x[0]+2*x[1])
 

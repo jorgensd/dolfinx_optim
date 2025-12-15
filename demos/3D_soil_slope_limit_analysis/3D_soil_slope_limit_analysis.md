@@ -113,7 +113,7 @@ def border(x):
 
 
 gdim = 3
-V = fem.functionspace(domain, ("CG", 2, (gdim,)))
+V = fem.functionspace(domain, ("Lagrange", 2, (gdim,)))
 bc_dofs = fem.locate_dofs_geometrical(V, border)
 bcs = [fem.dirichletbc(np.zeros((gdim,)), bc_dofs, V)]
 ```
